@@ -93,7 +93,7 @@ from isaaclab_rl.sb3 import Sb3VecEnvWrapper, process_sb3_cfg
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils.hydra import hydra_task_config
 
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 
 @hydra_task_config(args_cli.task, "sb3_cfg_entry_point")

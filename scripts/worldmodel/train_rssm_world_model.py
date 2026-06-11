@@ -63,7 +63,7 @@ from torch.utils.tensorboard import SummaryWriter
 from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 
 import isaaclab_tasks  # noqa: F401
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 from rssm import RSSM, kl_normal
 

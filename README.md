@@ -37,10 +37,10 @@ This project implements reinforcement/imitation learning environments and polici
 3. **Install the extension** in editable mode:
    ```bash
    # If Isaac Lab is installed in conda/venv:
-   python -m pip install -e source/msr
+   python -m pip install -e source/asb_dual_arm
    
    # If using isaaclab.sh wrapper:
-   # ./isaaclab.sh -p -m pip install -e source/msr
+   # ./isaaclab.sh -p -m pip install -e source/asb_dual_arm
    ```
 
 ### Verification
@@ -138,7 +138,7 @@ ASBDualArm/
 │       └── state_machine/       # Scripted demonstrations
 │           ├── lift_needle_*    # Needle manipulation SMs
 │           └── lift_block_*     # Block manipulation SMs
-├── source/msr/msr/
+├── source/asb_dual_arm/asb_dual_arm/
 │   ├── tasks/direct/            # Task definitions
 │   │   ├── lift/                # Lift task environments
 │   │   │   ├── lift_env_cfg.py  # Base config (full task)
@@ -190,15 +190,15 @@ The full end-to-end lift task uses the following rewards:
 ## Key Configuration Files
 
 ### Robot Configuration
-- `source/msr/msr/config/robot/msr.py`: MSR PSM robot articulation, actuators, PD gains
+- `source/asb_dual_arm/asb_dual_arm/config/robot/msr.py`: MSR PSM robot articulation, actuators, PD gains
 
 ### Environment Configs
-- `source/msr/msr/tasks/direct/lift/lift_env_cfg.py`: Full lift task (base)
-- `source/msr/msr/tasks/direct/lift/msr/ik_rel_env_cfg.py`: IK control variants and stage configs
+- `source/asb_dual_arm/asb_dual_arm/tasks/direct/lift/lift_env_cfg.py`: Full lift task (base)
+- `source/asb_dual_arm/asb_dual_arm/tasks/direct/lift/msr/ik_rel_env_cfg.py`: IK control variants and stage configs
 
 ### RL Hyperparameters
-- `source/msr/msr/tasks/direct/lift/msr/agents/skrl_ppo_cfg_pick.yaml`: Pick stage PPO config
-- `source/msr/msr/tasks/direct/lift/msr/agents/skrl_ppo_cfg_lift_pregrasp.yaml`: Lift stage PPO config
+- `source/asb_dual_arm/asb_dual_arm/tasks/direct/lift/msr/agents/skrl_ppo_cfg_pick.yaml`: Pick stage PPO config
+- `source/asb_dual_arm/asb_dual_arm/tasks/direct/lift/msr/agents/skrl_ppo_cfg_lift_pregrasp.yaml`: Lift stage PPO config
 
 ---
 
@@ -207,14 +207,14 @@ The full end-to-end lift task uses the following rewards:
 
 ### Adding New Rewards
 
-1. Define reward function in `source/msr/msr/tasks/direct/lift/mdp/rewards.py`
+1. Define reward function in `source/asb_dual_arm/asb_dual_arm/tasks/direct/lift/mdp/rewards.py`
 2. Add `RewTerm` to environment config's `RewardsCfg`
 3. Test with state machine before RL training
 
 ### Creating New Tasks
 
 1. Create environment config inheriting from `LiftEnvCfg` or similar
-2. Register in `source/msr/msr/tasks/direct/lift/msr/__init__.py`
+2. Register in `source/asb_dual_arm/asb_dual_arm/tasks/direct/lift/msr/__init__.py`
 3. Add YAML config in `agents/` directory
 4. Create state machine for validation (optional but recommended)
 

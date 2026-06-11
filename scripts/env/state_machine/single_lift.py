@@ -66,7 +66,7 @@ from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 import numpy as np
 
 import isaaclab_tasks  # noqa: F401
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 # USD/PhysX imports for analyzing scene structure
 from pxr import Usd, UsdPhysics

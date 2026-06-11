@@ -87,7 +87,7 @@ import torch
 from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 
 import isaaclab_tasks  # noqa: F401
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 
 GRIPPER_OPEN_ANGLE_DEG = 15.0
@@ -128,7 +128,7 @@ def apply_organ_usd_override(env_cfg, usd_path_override: str | None):
     print(f"    active : {spawn_cfg.usd_path}")
 
     try:
-        from msr.tasks.direct.dual_arm.msr import joint_pos_env_cfg as dual_arm_joint_cfg
+        from asb_dual_arm.tasks.direct.dual_arm.msr import joint_pos_env_cfg as dual_arm_joint_cfg
 
         dual_arm_joint_cfg.apply_robot_1_init_state_from_usd(env_cfg, spawn_cfg.usd_path, verbose=True)
         dual_arm_joint_cfg.apply_robot_2_init_state_from_usd(env_cfg, spawn_cfg.usd_path, verbose=True)
@@ -142,7 +142,7 @@ def enable_robot_2_gripper_action(env_cfg) -> None:
     if actions_cfg is None:
         raise RuntimeError("Environment configuration has no 'actions' section.")
 
-    from msr.tasks.direct.dual_arm import mdp as dual_arm_mdp
+    from asb_dual_arm.tasks.direct.dual_arm import mdp as dual_arm_mdp
 
     actions_cfg.gripper_2_action = dual_arm_mdp.BinaryJointPositionActionCfg(
         asset_name="robot_2",

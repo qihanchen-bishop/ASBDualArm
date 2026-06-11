@@ -163,9 +163,9 @@ import torch
 from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 
 import isaaclab_tasks  # noqa: F401
-from msr.config.robot import SO101_ALL_JOINT_NAMES
-import msr.tasks  # noqa: F401
-import msr.tasks.direct.dual_arm.mdp as dual_arm_mdp
+from asb_dual_arm.config.robot import SO101_ALL_JOINT_NAMES
+import asb_dual_arm.tasks  # noqa: F401
+import asb_dual_arm.tasks.direct.dual_arm.mdp as dual_arm_mdp
 
 
 SO101_JOINT_NAMES = list(SO101_ALL_JOINT_NAMES)

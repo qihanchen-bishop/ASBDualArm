@@ -192,9 +192,9 @@ from isaaclab.envs import (
 from isaaclab.utils.pretrained_checkpoint import get_published_pretrained_checkpoint
 
 from isaaclab_rl.skrl import SkrlVecEnvWrapper
-import msr.tasks  # noqa: F401
-import msr.tasks.direct.lift_organ_fixed.mdp as task_mdp
-import msr.tasks.direct.lift_organ_fixed.mdp.rewards as task_mdp_rewards
+import asb_dual_arm.tasks  # noqa: F401
+import asb_dual_arm.tasks.direct.lift_organ_fixed.mdp as task_mdp
+import asb_dual_arm.tasks.direct.lift_organ_fixed.mdp.rewards as task_mdp_rewards
 
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils import get_checkpoint_path

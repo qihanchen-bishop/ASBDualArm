@@ -23,8 +23,8 @@ policy/*
 !policy/.gitkeep
 saved_data/*
 !saved_data/.gitkeep
-source/msr/msr/assets/*
-!source/msr/msr/assets/README.md
+source/asb_dual_arm/asb_dual_arm/assets/*
+!source/asb_dual_arm/asb_dual_arm/assets/README.md
 
 # Common model/data/video artifacts
 *.pt

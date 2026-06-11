@@ -83,7 +83,7 @@ import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils.hydra import hydra_task_config
 from isaaclab_tasks.utils.parse_cfg import get_checkpoint_path
 
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 
 @hydra_task_config(args_cli.task, "sb3_cfg_entry_point")

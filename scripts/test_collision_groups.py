@@ -18,7 +18,7 @@ from isaacsim.core.utils.stage import get_current_stage
 import traceback
 
 import isaaclab_tasks  # noqa: F401
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 def analyze_organ_structure(env_prim_path: str):
     """Analyze the USD structure under Organ prim"""

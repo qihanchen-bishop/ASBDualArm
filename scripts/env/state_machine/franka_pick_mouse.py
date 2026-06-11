@@ -92,8 +92,8 @@ from isaaclab.utils import math as math_utils
 from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 
 import isaaclab_tasks  # noqa: F401
-import msr.tasks  # noqa: F401
-from msr.tasks.direct.franka_pick.msr.franka_pick_env_cfg import (
+import asb_dual_arm.tasks  # noqa: F401
+from asb_dual_arm.tasks.direct.franka_pick.msr.franka_pick_env_cfg import (
     FRANKA_EE_OFFSET,
     SHEET_EFFECTIVE_SIZE,
     SHEET_INIT_POS,

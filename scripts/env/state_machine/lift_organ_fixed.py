@@ -127,7 +127,7 @@ from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 import numpy as np
 
 import isaaclab_tasks  # noqa: F401
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 # USD/PhysX imports for analyzing scene structure
 from pxr import Usd, UsdPhysics
@@ -297,7 +297,7 @@ def apply_organ_usd_override(env_cfg, usd_path_override: str | None):
 
     # Keep robot init_state aligned with the active scene USD.
     try:
-        from msr.tasks.direct.lift_organ_fixed.msr import joint_pos_env_cfg as lift_organ_fixed_joint_cfg
+        from asb_dual_arm.tasks.direct.lift_organ_fixed.msr import joint_pos_env_cfg as lift_organ_fixed_joint_cfg
 
         lift_organ_fixed_joint_cfg.apply_robot_1_init_state_from_usd(
             env_cfg,

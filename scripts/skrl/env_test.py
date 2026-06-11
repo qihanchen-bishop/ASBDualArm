@@ -95,7 +95,7 @@ from isaaclab.utils.math import subtract_frame_transforms
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils import parse_env_cfg
 
-import msr.tasks  # noqa: F401
+import asb_dual_arm.tasks  # noqa: F401
 
 
 def _to_float(value):
