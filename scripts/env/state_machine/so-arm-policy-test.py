@@ -1164,6 +1164,31 @@ def _with_mask_act_feature_fallbacks(meta, run_config: dict):
     return SimpleNamespace(features=features, stats=stats, fps=meta.fps)
 
 
+def _mask_act_metadata_from_checkpoint(training_state: dict):
+    from types import SimpleNamespace
+
+    features = training_state.get("dataset_features")
+    stats = training_state.get("dataset_stats")
+    fps = training_state.get("dataset_fps")
+    if features is None or stats is None or fps is None:
+        return None
+    return SimpleNamespace(features=features, stats=stats, fps=fps)
+
+
+def _mask_act_metadata_from_sidecar(run_dir: Path):
+    from types import SimpleNamespace
+
+    from lerobot.datasets.utils import load_info, load_stats
+
+    metadata_root = run_dir / "dataset_metadata"
+    info_path = metadata_root / "meta" / "info.json"
+    stats_path = metadata_root / "meta" / "stats.json"
+    if not info_path.is_file() or not stats_path.is_file():
+        return None
+    info = load_info(metadata_root)
+    return SimpleNamespace(features=info["features"], stats=load_stats(metadata_root), fps=info["fps"])
+
+
 def _load_mask_act_policy(
     run_dir: Path,
     checkpoint_dir: Path,
@@ -1178,9 +1203,23 @@ def _load_mask_act_policy(
 
     run_config_path = run_dir / "mask_act_run_config.json"
     run_config = json.loads(run_config_path.read_text(encoding="utf-8"))
-    dataset_root = _resolve_mask_act_dataset_root(run_dir, run_config, dataset_root_override)
-    repo_id = str(run_config.get("repo_id") or "cube1")
-    meta = LeRobotDatasetMetadata(repo_id, root=dataset_root)
+    training_state = torch.load(checkpoint_dir / "training_state.pt", map_location="cpu")
+    meta = _mask_act_metadata_from_checkpoint(training_state)
+    if meta is None:
+        meta = _mask_act_metadata_from_sidecar(run_dir)
+    if meta is None:
+        try:
+            dataset_root = _resolve_mask_act_dataset_root(run_dir, run_config, dataset_root_override)
+        except FileNotFoundError as exc:
+            raise FileNotFoundError(
+                "This Mask-ACT checkpoint predates embedded inference metadata. It does not contain the "
+                "training dataset features or normalization statistics, so exact inference requires the "
+                "original LeRobot dataset metadata. Restore the dataset and pass --mask-act-dataset-root, "
+                "add meta/info.json and meta/stats.json under policy/<run>/dataset_metadata, or export "
+                "dataset_features/dataset_stats/dataset_fps into training_state.pt."
+            ) from exc
+        repo_id = str(run_config.get("repo_id") or "cube1")
+        meta = LeRobotDatasetMetadata(repo_id, root=dataset_root)
     meta_for_policy = _with_mask_act_feature_fallbacks(meta, run_config)
 
     policy_args = Namespace(
@@ -1202,13 +1241,12 @@ def _load_mask_act_policy(
     )
 
     model = make_policy(policy_args, meta_for_policy, stats=meta_for_policy.stats).to(device)
-    training_state = torch.load(checkpoint_dir / "training_state.pt", map_location=device)
     model.load_state_dict(training_state["model"])
     model.eval()
 
     preprocessor, postprocessor = make_pre_post_processors(
         policy_cfg=model.config,
-        dataset_stats=meta.stats,
+        dataset_stats=meta_for_policy.stats,
     )
     adapter = MaskACTInferencePolicy(
         model=model,
