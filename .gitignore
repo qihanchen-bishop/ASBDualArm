@@ -1,0 +1,42 @@
+# Python/cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments/editors
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Isaac Lab / training outputs
+logs/
+outputs/
+runs/
+wandb/
+
+# Large local artifacts kept outside GitHub
+policy/*
+!policy/.gitkeep
+saved_data/*
+!saved_data/.gitkeep
+source/msr/msr/assets/*
+!source/msr/msr/assets/README.md
+
+# Common model/data/video artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.h5
+*.hdf5
+*.npz
+*.npy
